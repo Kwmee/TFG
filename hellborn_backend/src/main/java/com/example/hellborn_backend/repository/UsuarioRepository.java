@@ -9,4 +9,6 @@ import com.example.hellborn_backend.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
     Optional<Usuario> findByEmail(String email);
+
+    Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 }

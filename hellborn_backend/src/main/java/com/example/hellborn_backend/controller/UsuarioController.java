@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hellborn_backend.DTO.LoginRequestDTO;
+import com.example.hellborn_backend.DTO.UsuarioDTO;
 import com.example.hellborn_backend.DTO.UsuarioLoginDTO;
 import com.example.hellborn_backend.service.UsuarioService;
 
@@ -25,5 +26,10 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<UsuarioLoginDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         return ResponseEntity.ok(servicio.login(loginRequestDTO));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UsuarioDTO> register(@RequestBody UsuarioDTO usuarioDTO) {
+        return ResponseEntity.ok(servicio.register(usuarioDTO));
     }
 }
