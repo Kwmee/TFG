@@ -34,6 +34,9 @@ function NavbarRoutes() {
                         <Link to="/Routes" className="nav-link">Route HF</Link>
                         <Link to="/Tienda" className="nav-link">Tienda</Link>
                         <Link to="/Tickets" className="nav-link-tickets">Tickets</Link>
+                        {usuarioLogeado?.rol === "ADMIN" && (
+                            <Link to="/admin" className="nav-link">Admin</Link>
+                        )}
 
                         {/* BOTÓN INICIO SESION */}
                         {usuarioLogeado ? (
@@ -41,7 +44,7 @@ function NavbarRoutes() {
                                 className="user-button"
                                 aria-label="Cerrar sesión"
                                 onClick={cerrarSesion}
-                                title={`Cerrar sesión de ${usuarioLogeado.name}`}
+                                title={`Cerrar sesión de ${usuarioLogeado.nombreUsuario}`}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -84,8 +87,11 @@ function NavbarRoutes() {
 
                         {/* Boton carrito */}
 
-                        <Link
-                            className="user-button" onClick={() => setOpenCart(true)}>
+                        <button
+                            type="button"
+                            className="user-button"
+                            aria-label="Abrir carrito"
+                            onClick={() => setOpenCart(true)}>
 
                             <svg
                                 width="24"
@@ -102,7 +108,7 @@ function NavbarRoutes() {
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                             </svg>
 
-                        </Link>
+                        </button>
                     </nav>
                 </div>
                 <CarritoModal />

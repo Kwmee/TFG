@@ -5,6 +5,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
+        "postinstall": "vite build",
         "preview": "vite preview"
     },
     "devDependencies": {

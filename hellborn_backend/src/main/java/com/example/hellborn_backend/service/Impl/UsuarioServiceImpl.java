@@ -1,6 +1,7 @@
 package com.example.hellborn_backend.service.Impl;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,7 @@ import com.example.hellborn_backend.service.UsuarioService;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Service
@@ -103,5 +105,81 @@ public class UsuarioServiceImpl implements UsuarioService{
         }
 
         return respuesta;
+    }
+
+    // Convierte la entidad al DTO que ya usa el login.
+    private UsuarioLoginDTO convertirUsuarioLoginDTO(Usuario usuario) {
+        UsuarioLoginDTO usuarioLoginDTO = new UsuarioLoginDTO();
+        usuarioLoginDTO.setId(usuario.getId());
+        usuarioLoginDTO.setNombre(usuario.getNombre());
+        usuarioLoginDTO.setApellido(usuario.getApellido());
+        usuarioLoginDTO.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioLoginDTO.setEmail(usuario.getEmail());
+        usuarioLoginDTO.setRol(usuario.getRol());
+        return usuarioLoginDTO;
+    }
+
+    // Se usa en las acciones del panel para asegurar que quien entra es admin.
+    private Usuario obtenerAdmin(Integer idAdmin) {
+        if (idAdmin == null) {
+            throw new ResponseStatusException(FORBIDDEN, "No tienes permisos de administrador.");
+        }
+
+        Usuario admin = repository.findById(idAdmin)
+                .orElseThrow(() -> new ResponseStatusException(FORBIDDEN, "No tienes permisos de administrador."));
+
+        if (!"ADMIN".equals(admin.getRol())) {
+            throw new ResponseStatusException(FORBIDDEN, "No tienes permisos de administrador.");
+        }
+
+        return admin;
+    }
+
+    @Override
+    public List<UsuarioLoginDTO> listarUsuarios(Integer idAdmin) {
+        obtenerAdmin(idAdmin);
+
+        return repository.findAll()
+                .stream()
+                .map(this::convertirUsuarioLoginDTO)
+                .toList();
+    }
+
+    @Override
+    public UsuarioLoginDTO hacerAdmin(Integer idAdmin, Integer idUsuario) {
+        obtenerAdmin(idAdmin);
+
+        if (idUsuario == null) {
+            throw new ResponseStatusException(BAD_REQUEST, "El id del usuario es obligatorio.");
+        }
+
+        Usuario usuario = repository.findById(idUsuario)
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "El usuario no existe."));
+
+        usuario.setRol("ADMIN");
+        Usuario usuarioGuardado = repository.save(usuario);
+
+        return convertirUsuarioLoginDTO(usuarioGuardado);
+    }
+
+    @Override
+    public UsuarioLoginDTO quitarAdmin(Integer idAdmin, Integer idUsuario) {
+        obtenerAdmin(idAdmin);
+
+        if (idUsuario == null) {
+            throw new ResponseStatusException(BAD_REQUEST, "El id del usuario es obligatorio.");
+        }
+
+        if (idAdmin.equals(idUsuario)) {
+            throw new ResponseStatusException(BAD_REQUEST, "No puedes quitarte el rol de administrador a ti mismo.");
+        }
+
+        Usuario usuario = repository.findById(idUsuario)
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "El usuario no existe."));
+
+        usuario.setRol("USER");
+        Usuario usuarioGuardado = repository.save(usuario);
+
+        return convertirUsuarioLoginDTO(usuarioGuardado);
     }
 }

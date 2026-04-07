@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>App</title>
     <link rel="preload" as="image" href="/logo.webp" />
 

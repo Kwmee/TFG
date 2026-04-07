@@ -17,6 +17,7 @@ import "./TICKETS/tickets.css";
 import { Route, Routes } from "react-router-dom";
 import LoginModal from "./Components/Modal/LoginModal";
 import RegisterModal from "./Components/Modal/RegisterModal";
+import AdminPanel from "./ADMIN/Components/AdminPanel";
 
 import GlobalProvider from "./Providers/GlobalProviders";
 
@@ -27,7 +28,7 @@ function App() {
 
   return (
 
-    <Suspense>
+    <Suspense fallback={<div>Cargando...</div>}>
       <GlobalProvider>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Tienda" element={<Tienda />} />
           <Route path="/LoginModal" element={<LoginModal />} />
           <Route path="/Register" element={<RegisterModal />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </GlobalProvider>
     </Suspense>
