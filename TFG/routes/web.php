@@ -8,4 +8,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/filtro', [EventoController::class, 'all']);
 
 Route::view('/{any}', 'app')->where('any', '.*');
-
