@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {
   getUsuarioLogeado,
   postLogin,
+  postRegister,
   postLogout,
 } from "../API/api";
 
@@ -10,6 +11,7 @@ export const HelperLoginContext = createContext();
 export const HelperLoginProvider = ({ children }) => {
   const [usuarioLogeado, setUsuarioLogeado] = useState(null);
   const [erroresLogin, setErroresLogin] = useState({});
+  const [erroresRegister, setErroresRegister] = useState({});
   const [cargandoLogin, setCargandoLogin] = useState(true);
 
   useEffect(() => {
@@ -44,10 +46,28 @@ export const HelperLoginProvider = ({ children }) => {
     }
   }
 
+  async function registrarSesion(datosFormulario) {
+    setErroresRegister({});
+
+    try {
+      const usuario = await postRegister(datosFormulario);
+      setUsuarioLogeado(usuario);
+      return { ok: true };
+    } catch (error) {
+      setErroresRegister(error.errors ?? {});
+
+      return {
+        ok: false,
+        mensaje: error.message ?? "No se pudo registrar el usuario.",
+      };
+    }
+  }
+
   async function cerrarSesion() {
     await postLogout();
     setUsuarioLogeado(null);
     setErroresLogin({});
+    setErroresRegister({});
   }
 
   return (
@@ -57,8 +77,11 @@ export const HelperLoginProvider = ({ children }) => {
         setUsuarioLogeado,
         erroresLogin,
         setErroresLogin,
+        erroresRegister,
+        setErroresRegister,
         cargandoLogin,
         iniciarSesion,
+        registrarSesion,
         cerrarSesion,
       }}
     >

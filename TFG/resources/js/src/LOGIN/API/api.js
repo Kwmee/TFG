@@ -46,6 +46,15 @@ export async function postLogin(datosFormulario) {
   return datos.usuario;
 }
 
+export async function postRegister(datosFormulario) {
+  const datos = await peticionAuth("/register", {
+    method: "POST",
+    body: JSON.stringify(datosFormulario),
+  });
+
+  return datos.usuario;
+}
+
 export async function postLogout() {
   return peticionAuth("/logout", {
     method: "POST",

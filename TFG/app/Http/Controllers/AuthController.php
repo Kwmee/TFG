@@ -2,12 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $datosUsuario = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed', 'min:8'],
+        ]);
+
+        $usuario = User::create($datosUsuario);
+
+        Auth::login($usuario);
+        $request->session()->regenerate();
+
+        return response()->json([
+            'usuario' => $usuario,
+        ], 201);
+    }
+
     public function login(Request $request)
     {
         $credenciales = $request->validate([
