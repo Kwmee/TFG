@@ -1,19 +1,21 @@
-function getCsrfToken() {
-  return document
-    .querySelector('meta[name="csrf-token"]')
-    ?.getAttribute("content");
+export async function getUsuarioLogeado() {
+  const usuarioGuardado = localStorage.getItem("usuarioLogeado");
+
+  if (!usuarioGuardado) {
+    return null;
+  }
+
+  return JSON.parse(usuarioGuardado);
 }
 
-async function peticionAuth(url, opciones = {}) {
-  const respuesta = await fetch(url, {
-    credentials: "same-origin",
+export async function postLogin(datosFormulario) {
+  const respuesta = await fetch("http://localhost:8080/usuario/login", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-TOKEN": getCsrfToken(),
       Accept: "application/json",
-      ...opciones.headers,
     },
-    ...opciones,
+    body: JSON.stringify(datosFormulario),
   });
 
   const datos = await respuesta.json();
@@ -22,41 +24,11 @@ async function peticionAuth(url, opciones = {}) {
     throw datos;
   }
 
+  localStorage.setItem("usuarioLogeado", JSON.stringify(datos));
   return datos;
 }
 
-export async function getUsuarioLogeado() {
-  const respuesta = await fetch("/usuario", {
-    credentials: "same-origin",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-
-  const datos = await respuesta.json();
-  return datos.usuario;
-}
-
-export async function postLogin(datosFormulario) {
-  const datos = await peticionAuth("/login", {
-    method: "POST",
-    body: JSON.stringify(datosFormulario),
-  });
-
-  return datos.usuario;
-}
-
-export async function postRegister(datosFormulario) {
-  const datos = await peticionAuth("/register", {
-    method: "POST",
-    body: JSON.stringify(datosFormulario),
-  });
-
-  return datos.usuario;
-}
-
 export async function postLogout() {
-  return peticionAuth("/logout", {
-    method: "POST",
-  });
+  localStorage.removeItem("usuarioLogeado");
+  return { ok: true };
 }
