@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../../Components/NavBars/NavBar'
 import { RouteHelperContext } from '../Helpers/RouteHelper'
 import Footer from './../../Components/Footer/Footer'
+import { ROUTE_API_BASE_URL, buildApiUrl } from "../../config/api";
 
 function RoutesH() {
 
@@ -11,7 +12,7 @@ function RoutesH() {
   const { filtrar } = useContext(RouteHelperContext)
 
   useEffect(() => {
-    fetch("https://tfg-production-5282.up.railway.app/filtro")
+    fetch(buildApiUrl(ROUTE_API_BASE_URL, "/filtro"))
       .then(res => res.json())
       .then(setConciertos);
   }, []);

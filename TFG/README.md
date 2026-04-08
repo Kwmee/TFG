@@ -46,6 +46,39 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
+## Configuracion de APIs en frontend
+
+El frontend ya no tiene las URLs de produccion escritas a mano en cada `fetch`.
+Ahora las lee desde variables de entorno de Vite.
+
+Archivo central:
+
+- `resources/js/src/config/api.js`
+
+Variables necesarias:
+
+- `VITE_API_BASE_URL`: URL del backend Spring Boot
+- `VITE_ROUTE_API_BASE_URL`: URL del backend Laravel
+
+Ejemplo en local:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8080
+VITE_ROUTE_API_BASE_URL=http://127.0.0.1:8000
+```
+
+Ejemplo en Railway:
+
+```env
+VITE_API_BASE_URL=https://lovely-creation-production-a868.up.railway.app
+VITE_ROUTE_API_BASE_URL=https://tfg-production-5282.up.railway.app
+```
+
+Importante:
+
+- Vite solo expone al frontend variables que empiezan por `VITE_`
+- si cambias estas variables en Railway, el servicio Laravel tiene que hacer redeploy para reconstruir el frontend
+
 ## Code of Conduct
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).

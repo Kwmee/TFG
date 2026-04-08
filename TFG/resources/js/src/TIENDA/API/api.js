@@ -1,7 +1,7 @@
+import { API_BASE_URL, buildApiUrl } from "../../config/api";
+
 export async function getMerch(categoriaActiva) {
-    const url = new URL(
-        "https://lovely-creation-production-a868.up.railway.app/merchandising/" + categoriaActiva,
-    );
+    const url = new URL(buildApiUrl(API_BASE_URL, `/merchandising/${categoriaActiva}`));
     const datatype = await fetch(url);
     const datos = await datatype.json();
     if (!datos) {
@@ -12,9 +12,7 @@ export async function getMerch(categoriaActiva) {
 }
 
 export async function getTickets() {
-    const url = new URL(
-        "https://lovely-creation-production-a868.up.railway.app/ticket/tickets",
-    );  
+    const url = new URL(buildApiUrl(API_BASE_URL, "/ticket/tickets"));
     const datatype = await fetch(url);
     const datos = await datatype.json();
     if (!datos) {

@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
+import { ROUTE_API_BASE_URL, buildApiUrl } from "../../config/api";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -13,7 +14,7 @@ export const RouteHelperProvider = ({ children }) => {
         const formData = new FormData(e.target);
         const params = new URLSearchParams(formData);
 
-        const response = await fetch(`https://tfg-production-5282.up.railway.app/filtro?${params}`);
+        const response = await fetch(buildApiUrl(ROUTE_API_BASE_URL, `/filtro?${params}`));
 
         const data = await response.json();
         setConciertos(data);
@@ -29,5 +30,3 @@ export const RouteHelperProvider = ({ children }) => {
         </RouteHelperContext.Provider>
     )
 }
-
-
