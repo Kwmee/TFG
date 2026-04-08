@@ -5,7 +5,7 @@ function getCsrfToken() {
 }
 
 export async function getConciertosAdmin(idAdmin) {
-  const respuesta = await fetch(`https://lovely-creation-production-a868.up.railway.app/admin/conciertos?idAdmin=${idAdmin}`, {
+  const respuesta = await fetch(`/admin/conciertos?idAdmin=${idAdmin}`, {
     headers: {
       Accept: "application/json",
     },
@@ -20,7 +20,7 @@ export async function getConciertosAdmin(idAdmin) {
 }
 
 export async function postCrearConcierto(datosFormulario) {
-  const respuesta = await fetch("https://lovely-creation-production-a868.up.railway.app/admin/conciertos", {
+  const respuesta = await fetch("/admin/conciertos", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export async function postCrearConcierto(datosFormulario) {
 }
 
 export async function deleteConcierto(idConcierto, idAdmin) {
-  const respuesta = await fetch(`https://lovely-creation-production-a868.up.railway.app/admin/conciertos/${idConcierto}?idAdmin=${idAdmin}`, {
+  const respuesta = await fetch(`/admin/conciertos/${idConcierto}?idAdmin=${idAdmin}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
