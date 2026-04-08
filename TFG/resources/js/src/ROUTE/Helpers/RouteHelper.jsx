@@ -13,7 +13,7 @@ export const RouteHelperProvider = ({ children }) => {
         const formData = new FormData(e.target);
         const params = new URLSearchParams(formData);
 
-        const response = await fetch(`https://lovely-creation-production-a868.up.railway.app/filtro?${params}`);
+        const response = await fetch(`https://tfg-production-5282.up.railway.app/filtro?${params}`);
 
         const data = await response.json();
         setConciertos(data);
