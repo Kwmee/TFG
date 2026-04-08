@@ -17,8 +17,9 @@ function Index() {
             {/* 
                     <!-- Hero Section --> */}
             <section className="hero" id="inicio">
-                <video autoPlay muted loop className="bg-video">
-                    <source src="video-f.webm" type="video/mp4" />
+                <video autoPlay muted loop playsInline preload="metadata" className="bg-video" poster="logo.webp">
+                    <source src="video-f.webm" type="video/webm" />
+                    <source src="video.webm" type="video/webm" />
                 </video>
                 <div className="container">
                     <div className="hero-content">
