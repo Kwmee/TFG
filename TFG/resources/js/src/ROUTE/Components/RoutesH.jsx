@@ -11,7 +11,7 @@ function RoutesH() {
   const { filtrar } = useContext(RouteHelperContext)
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/filtro")
+    fetch("https://tfg-production-5282.up.railway.app/filtro")
       .then(res => res.json())
       .then(setConciertos);
   }, []);
