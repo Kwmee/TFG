@@ -1,5 +1,5 @@
 export async function getMerchAdmin(idAdmin) {
-  const respuesta = await fetch(`https://tfg-production-5282.up.railway.app/merchandising/admin?idAdmin=${idAdmin}`);
+  const respuesta = await fetch(`https://lovely-creation-production-a868.up.railway.app/merchandising/admin?idAdmin=${idAdmin}`);
   const datos = await respuesta.json();
 
   if (!respuesta.ok) {
@@ -10,7 +10,7 @@ export async function getMerchAdmin(idAdmin) {
 }
 
 export async function postCrearMerch(idAdmin, datosFormulario) {
-  const respuesta = await fetch(`https://tfg-production-5282.up.railway.app/merchandising/admin?idAdmin=${idAdmin}`, {
+  const respuesta = await fetch(`https://lovely-creation-production-a868.up.railway.app/merchandising/admin?idAdmin=${idAdmin}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export async function postCrearMerch(idAdmin, datosFormulario) {
 }
 
 export async function deleteMerch(idAdmin, idMerch) {
-  const respuesta = await fetch(`https://tfg-production-5282.up.railway.app/merchandising/admin/${idMerch}?idAdmin=${idAdmin}`, {
+  const respuesta = await fetch(`https://lovely-creation-production-a868.up.railway.app/merchandising/admin/${idMerch}?idAdmin=${idAdmin}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
