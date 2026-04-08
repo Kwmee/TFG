@@ -9,6 +9,27 @@ const ROUTE_API_BASE_URL = (
 
 export function buildApiUrl(baseUrl, path) {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  if (!baseUrl || typeof window === "undefined") {
+    return `${baseUrl}${normalizedPath}`;
+  }
+
+  try {
+    const targetUrl = new URL(baseUrl);
+    const currentUrl = new URL(window.location.origin);
+    const isSameAppDifferentLocalHost =
+      targetUrl.protocol === currentUrl.protocol &&
+      targetUrl.port === currentUrl.port &&
+      ["localhost", "127.0.0.1", "[::1]"].includes(targetUrl.hostname) &&
+      ["localhost", "127.0.0.1", "[::1]"].includes(currentUrl.hostname);
+
+    if (isSameAppDifferentLocalHost) {
+      return `${window.location.origin}${normalizedPath}`;
+    }
+  } catch {
+    // If baseUrl is relative or invalid, keep the fallback behavior.
+  }
+
   return `${baseUrl}${normalizedPath}`;
 }
 
