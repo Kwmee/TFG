@@ -17,7 +17,7 @@ import com.example.hellborn_backend.DTO.UsuarioDTO;
 import com.example.hellborn_backend.DTO.UsuarioLoginDTO;
 import com.example.hellborn_backend.service.UsuarioService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://tfg-production-5282.up.railway.app")
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {

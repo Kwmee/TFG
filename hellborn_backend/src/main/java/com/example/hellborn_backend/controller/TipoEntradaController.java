@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hellborn_backend.DTO.TipoEntradaDTO;
 import com.example.hellborn_backend.service.TipoEntradaService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://tfg-production-5282.up.railway.app")
 @RestController
 @RequestMapping("/ticket")
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.hellborn_backend.DTO.MerchandisingDTO;
 import com.example.hellborn_backend.service.MerchandisingService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://tfg-production-5282.up.railway.app")
 @Controller
 @RequestMapping("/merchandising/")
 public class MerchandisingController {
