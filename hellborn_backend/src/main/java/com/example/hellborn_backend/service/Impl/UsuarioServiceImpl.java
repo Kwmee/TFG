@@ -3,6 +3,7 @@ package com.example.hellborn_backend.service.Impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,6 +23,7 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class UsuarioServiceImpl implements UsuarioService{
 
     private final UsuarioRepository repository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UsuarioServiceImpl(UsuarioRepository repository) {
         this.repository = repository;
@@ -37,7 +39,15 @@ public class UsuarioServiceImpl implements UsuarioService{
         Usuario usuario = repository.findByEmail(loginRequestDTO.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(UNAUTHORIZED, "Credenciales incorrectas."));
 
-        if (!usuario.getPassword().equals(loginRequestDTO.getPassword())) {
+        boolean passwordValida = passwordEncoder.matches(loginRequestDTO.getPassword(), usuario.getPassword());
+
+        if (!passwordValida && usuario.getPassword().equals(loginRequestDTO.getPassword())) {
+            usuario.setPassword(passwordEncoder.encode(loginRequestDTO.getPassword()));
+            repository.save(usuario);
+            passwordValida = true;
+        }
+
+        if (!passwordValida) {
             throw new ResponseStatusException(UNAUTHORIZED, "Credenciales incorrectas.");
         }
 
@@ -80,7 +90,7 @@ public class UsuarioServiceImpl implements UsuarioService{
                 ? usuarioDTO.getNombreUsuario().trim()
                 : usuarioDTO.getNombre().trim());
         usuario.setEmail(usuarioDTO.getEmail().trim());
-        usuario.setPassword(usuarioDTO.getPassword());
+        usuario.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
         usuario.setRol(usuarioDTO.getRol() == null || usuarioDTO.getRol().isBlank() ? "USER" : usuarioDTO.getRol().trim());
         usuario.setFechaRegistro(LocalDate.now());
 
