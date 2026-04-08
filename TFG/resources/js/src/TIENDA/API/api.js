@@ -1,6 +1,6 @@
 export async function getMerch(categoriaActiva) {
     const url = new URL(
-        "http://localhost:8080/merchandising/" + categoriaActiva,
+        "https://tfg-production-5282.up.railway.app/merchandising/" + categoriaActiva,
     );
     const datatype = await fetch(url);
     const datos = await datatype.json();
@@ -13,7 +13,7 @@ export async function getMerch(categoriaActiva) {
 
 export async function getTickets() {
     const url = new URL(
-        "http://localhost:8080/ticket/tickets",
+        "https://tfg-production-5282.up.railway.app/ticket/tickets",
     );  
     const datatype = await fetch(url);
     const datos = await datatype.json();
