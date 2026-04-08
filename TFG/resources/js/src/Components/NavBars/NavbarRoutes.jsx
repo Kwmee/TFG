@@ -1,7 +1,7 @@
 import { HelpersIndexContext } from "../../INDEX/Helpers/HelpersIndex";
 import { Link } from "react-router-dom";
 import CarritoModal from "../Modal/CarritoModal";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HelperModalContext } from "../Modal/Helper/HelperModal";
 import { HelperLoginContext } from "../../LOGIN/Helpers/HelperLogin";
 
@@ -9,17 +9,52 @@ import { HelperLoginContext } from "../../LOGIN/Helpers/HelperLogin";
 function NavbarRoutes() {
     // const [openCart, setOpenCart] = useState(false);
 
-    let { openCart, setOpenCart } = useContext(HelperModalContext)
+    const { setOpenCart } = useContext(HelperModalContext);
     const { usuarioLogeado, cargandoLogin, cerrarSesion } = useContext(HelperLoginContext);
+    const [menuAbierto, setMenuAbierto] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = menuAbierto ? "hidden" : "";
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [menuAbierto]);
+
+    function cerrarMenu() {
+        setMenuAbierto(false);
+    }
+
+    function abrirCarrito() {
+        cerrarMenu();
+        setOpenCart(true);
+    }
+
+    function handleCerrarSesion() {
+        cerrarMenu();
+        cerrarSesion();
+    }
 
     return (
         <>
             <header className="header" id="header">
-
+                {menuAbierto && <button className="mobile-menu-overlay" type="button" aria-label="Cerrar menú" onClick={cerrarMenu} />}
                 <div className="header-content">
+                    <button
+                        type="button"
+                        className={`mobile-menu-button ${menuAbierto ? "is-open" : ""}`}
+                        aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
+                        aria-expanded={menuAbierto}
+                        onClick={() => setMenuAbierto((prev) => !prev)}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
+
                     <nav className="nav-left">
 
-                        <Link to="/" className="nav-link">
+                        <Link to="/" className="nav-link" onClick={cerrarMenu}>
                             Volver a inicio
                         </Link>
 
@@ -30,12 +65,12 @@ function NavbarRoutes() {
                         <img src="logo.webp" alt="Hellborn Fest" className="logo" />
                     </div>
 
-                    <nav className="nav-right">
-                        <Link to="/Routes" className="nav-link">Route HF</Link>
-                        <Link to="/Tienda" className="nav-link">Tienda</Link>
-                        <Link to="/Tickets" className="nav-link-tickets">Tickets</Link>
+                    <nav className={`nav-right ${menuAbierto ? "mobile-open" : ""}`}>
+                        <Link to="/Routes" className="nav-link" onClick={cerrarMenu}>Route HF</Link>
+                        <Link to="/Tienda" className="nav-link" onClick={cerrarMenu}>Tienda</Link>
+                        <Link to="/Tickets" className="nav-link-tickets" onClick={cerrarMenu}>Tickets</Link>
                         {usuarioLogeado?.rol === "ADMIN" && (
-                            <Link to="/admin" className="nav-link">Admin</Link>
+                            <Link to="/admin" className="nav-link" onClick={cerrarMenu}>Admin</Link>
                         )}
 
                         {/* BOTÓN INICIO SESION */}
@@ -43,7 +78,7 @@ function NavbarRoutes() {
                             <button
                                 className="user-button"
                                 aria-label="Cerrar sesión"
-                                onClick={cerrarSesion}
+                                onClick={handleCerrarSesion}
                                 title={`Cerrar sesión de ${usuarioLogeado.nombreUsuario}`}
                             >
                                 <svg
@@ -67,6 +102,7 @@ function NavbarRoutes() {
                                 className="user-button"
                                 aria-label={cargandoLogin ? "Cargando usuario" : "Iniciar sesión"}
                                 to="/LoginModal"
+                                onClick={cerrarMenu}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +127,7 @@ function NavbarRoutes() {
                             type="button"
                             className="user-button"
                             aria-label="Abrir carrito"
-                            onClick={() => setOpenCart(true)}>
+                            onClick={abrirCarrito}>
 
                             <svg
                                 width="24"

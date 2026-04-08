@@ -9,33 +9,71 @@ import { HelperLoginContext } from "../../LOGIN/Helpers/HelperLogin";
 function NavBarIndex() {
 
     const { scrollToTop } = useContext(HelpersIndexContext);
-    let { openCart, setOpenCart } = useContext(HelperModalContext)
+    const { setOpenCart } = useContext(HelperModalContext);
     const { usuarioLogeado, cargandoLogin, cerrarSesion } = useContext(HelperLoginContext);
+    const [menuAbierto, setMenuAbierto] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = menuAbierto ? "hidden" : "";
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [menuAbierto]);
+
+    function cerrarMenu() {
+        setMenuAbierto(false);
+    }
+
+    function abrirCarrito() {
+        cerrarMenu();
+        setOpenCart(true);
+    }
+
+    function handleCerrarSesion() {
+        cerrarMenu();
+        cerrarSesion();
+    }
 
     return (
         <>
             <header className="header" id="header">
-
+                {menuAbierto && <button className="mobile-menu-overlay" type="button" aria-label="Cerrar menú" onClick={cerrarMenu} />}
                 <div className="header-content">
+                    <button
+                        type="button"
+                        className={`mobile-menu-button ${menuAbierto ? "is-open" : ""}`}
+                        aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
+                        aria-expanded={menuAbierto}
+                        onClick={() => setMenuAbierto((prev) => !prev)}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
+
                     <nav className="nav-left">
-                        <button onClick={scrollToTop} className="nav-link">
+                        <button onClick={() => {
+                            scrollToTop();
+                            cerrarMenu();
+                        }} className="nav-link">
                             Inicio
                         </button>
-                        <a href="#artistas" className="nav-link">Artistas</a>
-                        <a href="#info" className="nav-link">Info</a>
-                        <a href="#noticias" className="nav-link">Noticias</a>
+                        <a href="#artistas" className="nav-link" onClick={cerrarMenu}>Artistas</a>
+                        <a href="#info" className="nav-link" onClick={cerrarMenu}>Info</a>
+                        <a href="#noticias" className="nav-link" onClick={cerrarMenu}>Noticias</a>
                     </nav>
 
                     <div className="logo-button">
                         <img src="logo.webp" alt="Hellborn Fest" className="logo" loading="eager" />
                     </div>
 
-                    <nav className="nav-right">
-                        <Link to="/Routes" className="nav-link">Route HF</Link>
-                        <Link to="/Tienda" className="nav-link">Tienda</Link>
-                        <Link to="/Tickets" className="nav-link-tickets">Tickets</Link>
+                    <nav className={`nav-right ${menuAbierto ? "mobile-open" : ""}`}>
+                        <Link to="/Routes" className="nav-link" onClick={cerrarMenu}>Route HF</Link>
+                        <Link to="/Tienda" className="nav-link" onClick={cerrarMenu}>Tienda</Link>
+                        <Link to="/Tickets" className="nav-link-tickets" onClick={cerrarMenu}>Tickets</Link>
                         {usuarioLogeado?.rol === "ADMIN" && (
-                            <Link to="/admin" className="nav-link">Admin</Link>
+                            <Link to="/admin" className="nav-link" onClick={cerrarMenu}>Admin</Link>
                         )}
 
                         {/* BOTÓN INICIO SESION */}
@@ -43,7 +81,7 @@ function NavBarIndex() {
                             <button
                                 className="user-button"
                                 aria-label="Cerrar sesión"
-                                onClick={cerrarSesion}
+                                onClick={handleCerrarSesion}
                                 title={`Cerrar sesión de ${usuarioLogeado.nombreUsuario}`}
                             >
                                 <svg
@@ -67,6 +105,7 @@ function NavBarIndex() {
                                 className="user-button"
                                 aria-label={cargandoLogin ? "Cargando usuario" : "Iniciar sesión"}
                                 to="/LoginModal"
+                                onClick={cerrarMenu}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +131,7 @@ function NavBarIndex() {
                             type="button"
                             className="user-button"
                             aria-label="Abrir carrito"
-                            onClick={() => setOpenCart(true)}>
+                            onClick={abrirCarrito}>
 
                             <svg
                                 width="24"
