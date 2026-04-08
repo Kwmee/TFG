@@ -18,6 +18,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginModal from "./Components/Modal/LoginModal";
 import RegisterModal from "./Components/Modal/RegisterModal";
 import AdminPanel from "./ADMIN/Components/AdminPanel";
+import CartToast from "./Components/Modal/CartToast";
 
 import GlobalProvider from "./Providers/GlobalProviders";
 
@@ -30,6 +31,7 @@ function App() {
 
     <Suspense fallback={<div>Cargando...</div>}>
       <GlobalProvider>
+        <CartToast />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/Routes" element={<RoutesH />} />

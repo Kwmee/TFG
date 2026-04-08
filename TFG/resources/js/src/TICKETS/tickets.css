@@ -179,3 +179,36 @@
   font-size: 0.875rem;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .tickets-section {
+    padding-top: 10rem;
+  }
+
+  .tickets-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .ticket-card {
+    padding: 1.5rem;
+  }
+
+  .ticket-title {
+    font-size: 1.4rem;
+  }
+
+  .price-amount {
+    font-size: 2.4rem;
+  }
+
+  .tickets-info {
+    padding: 1.5rem;
+  }
+
+  .tickets-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}

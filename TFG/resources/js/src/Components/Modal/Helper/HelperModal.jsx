@@ -4,32 +4,91 @@ export const HelperModalContext = createContext();
 
 export const HelperModalProvider = ({ children }) => {
     const [openCart, setOpenCart] = useState(false);
-
     const [arrMerch, setArrMerch] = useState([]);
-
     const [arrTicket, setArrTicket] = useState([]);
+    const [toast, setToast] = useState(null);
+
+    function mostrarToast(mensaje) {
+        setToast(mensaje);
+        window.clearTimeout(window.__hellbornToastTimer);
+        window.__hellbornToastTimer = window.setTimeout(() => {
+            setToast(null);
+        }, 2200);
+    }
 
     const addMerch = (producto) => {
-        setArrMerch((prev) => [...prev, producto]);
-        alert("Producto añadido ✅")
+        setArrMerch((prev) => {
+            const cartId = `merch-${producto.id}`;
+            const existente = prev.find((item) => item.cartId === cartId);
+
+            if (existente) {
+                return prev.map((item) =>
+                    item.cartId === cartId
+                        ? { ...item, cantidad: (item.cantidad || 1) + 1 }
+                        : item
+                );
+            }
+
+            return [...prev, { ...producto, cartId, cantidad: 1 }];
+        });
+        setOpenCart(true);
+        mostrarToast(`${producto.nombre} añadido al carrito`);
     };
 
-    const removeMerch = (id) => {
-        setArrMerch((prev) => prev.filter((p) => p.id !== id));
+    const removeMerch = (cartId) => {
+        setArrMerch((prev) =>
+            prev.flatMap((item) => {
+                if (item.cartId !== cartId) {
+                    return [item];
+                }
+
+                if ((item.cantidad || 1) <= 1) {
+                    return [];
+                }
+
+                return [{ ...item, cantidad: item.cantidad - 1 }];
+            })
+        );
     };
 
     const addTicket = (producto) => {
-        setArrTicket((prev) => [...prev, producto]);
-        alert("Producto añadido ✅")
+        setArrTicket((prev) => {
+            const cartId = `ticket-${producto.id ?? producto.categoria}`;
+            const existente = prev.find((item) => item.cartId === cartId);
+
+            if (existente) {
+                return prev.map((item) =>
+                    item.cartId === cartId
+                        ? { ...item, cantidad: (item.cantidad || 1) + 1 }
+                        : item
+                );
+            }
+
+            return [...prev, { ...producto, cartId, cantidad: 1 }];
+        });
+        setOpenCart(true);
+        mostrarToast(`${producto.categoria} añadido al carrito`);
     };
 
-    const removeTicket = (id) => {
-        setArrTicket((prev) => prev.filter((p) => p.id !== id));
+    const removeTicket = (cartId) => {
+        setArrTicket((prev) =>
+            prev.flatMap((item) => {
+                if (item.cartId !== cartId) {
+                    return [item];
+                }
+
+                if ((item.cantidad || 1) <= 1) {
+                    return [];
+                }
+
+                return [{ ...item, cantidad: item.cantidad - 1 }];
+            })
+        );
     };
 
     return (
         <HelperModalContext.Provider
-            value={{ openCart, setOpenCart, arrMerch, addMerch, removeMerch, arrTicket, addTicket, removeTicket }}
+            value={{ openCart, setOpenCart, arrMerch, addMerch, removeMerch, arrTicket, addTicket, removeTicket, toast }}
         >
             {children}
         </HelperModalContext.Provider>

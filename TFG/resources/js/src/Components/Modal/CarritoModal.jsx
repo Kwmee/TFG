@@ -10,6 +10,10 @@ function CarritoModal() {
 
     const { arrMerch, arrTicket, removeMerch, removeTicket } =
         useContext(HelperModalContext);
+    const total = [...arrMerch, ...arrTicket].reduce(
+        (acumulado, item) => acumulado + Number(item.precio || 0) * (item.cantidad || 1),
+        0,
+    );
 
     // Este efecto se ejecuta cada vez que cambia open.
     // Si open == true: Bloquea el scroll de la página.
@@ -29,7 +33,7 @@ function CarritoModal() {
 
     return createPortal(
         <>
-            <div className="cart-overlay" onClick={setOpenCart}></div>
+            <button className="cart-overlay" type="button" aria-label="Cerrar carrito" onClick={() => setOpenCart(false)} />
 
             <div className="cart-drawer">
                 <div className="cart-header">
@@ -43,11 +47,15 @@ function CarritoModal() {
                 </div>
 
                 <div className="cart-body">
+                    {arrMerch.length === 0 && arrTicket.length === 0 && (
+                        <p className="cart-empty">Tu carrito está vacío.</p>
+                    )}
+
                     {/* Recorre el array de Tienda en el carrito */}
 
                     {arrMerch.map((elemento, index) => {
                         return (
-                            <div key={index} className="cart-product">
+                            <div key={elemento.cartId ?? index} className="cart-product">
                                 <div className="cart-text">
                                     <img
                                         src={elemento.urlImg}
@@ -57,13 +65,14 @@ function CarritoModal() {
 
                                     <div>
                                         <p>{elemento.nombre}</p>
+                                        <p className="cart-cantidad">Cantidad: {elemento.cantidad || 1}</p>
                                         <strong className="cart-precio">
                                             {elemento.precio}€
                                         </strong>
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => removeMerch(elemento.id)}
+                                    onClick={() => removeMerch(elemento.cartId)}
                                     className="cart-btn"
                                 >
                                     🗑️
@@ -77,22 +86,18 @@ function CarritoModal() {
 
                     {arrTicket.map((elemento, index) => {
                         return (
-                            <div key={index} className="cart-product">
-                                <div className="cart-text">
-                                    <img
-                                        src="Camiseta.png"
-                                        alt=""
-                                        className="cart-imgMerch"
-                                    />
-                                <div>
+                            <div key={elemento.cartId ?? index} className="cart-product">
+                                <div className="cart-text cart-text-ticket">
+                                <div className="cart-ticket-copy">
                                     <p>{elemento.categoria}</p>
+                                    <p className="cart-cantidad">Cantidad: {elemento.cantidad || 1}</p>
                                     <strong className="cart-precio">
                                         {elemento.precio}€
                                     </strong>
                                 </div>
                                 </div>
                                 <button
-                                    onClick={() => removeTicket(elemento.id)}
+                                    onClick={() => removeTicket(elemento.cartId)}
                                     className="cart-btn"
                                 >
                                     🗑️
@@ -103,6 +108,7 @@ function CarritoModal() {
                     })}
                 </div>
                 <div className="cart-footer">
+                    <p className="cart-total">Total: {total.toFixed(2)}€</p>
                     <button className="checkout-btn">IR A LA CAJA</button>
                 </div>
             </div>
