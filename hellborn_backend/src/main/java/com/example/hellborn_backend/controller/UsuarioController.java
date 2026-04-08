@@ -3,7 +3,6 @@ package com.example.hellborn_backend.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +16,6 @@ import com.example.hellborn_backend.DTO.UsuarioDTO;
 import com.example.hellborn_backend.DTO.UsuarioLoginDTO;
 import com.example.hellborn_backend.service.UsuarioService;
 
-@CrossOrigin(origins = "https://tfg-production-5282.up.railway.app")
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
