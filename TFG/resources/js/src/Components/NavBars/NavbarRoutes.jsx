@@ -66,6 +66,14 @@ function NavbarRoutes() {
                     </div>
 
                     <nav className={`nav-right ${menuAbierto ? "mobile-open" : ""}`}>
+                        <div className="mobile-nav-group">
+                            <Link to="/" className="nav-link mobile-nav-link" onClick={cerrarMenu}>
+                                Inicio
+                            </Link>
+                        </div>
+
+                        <div className="mobile-nav-divider" />
+
                         <Link to="/Routes" className="nav-link" onClick={cerrarMenu}>Route HF</Link>
                         <Link to="/Tienda" className="nav-link" onClick={cerrarMenu}>Tienda</Link>
                         <Link to="/Tickets" className="nav-link-tickets" onClick={cerrarMenu}>Tickets</Link>

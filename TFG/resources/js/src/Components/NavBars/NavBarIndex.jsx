@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { HelpersIndexContext } from "../../INDEX/Helpers/HelpersIndex";
 import { Link } from "react-router-dom";
 import CarritoModal from "../Modal/CarritoModal";
 import { HelperModalContext } from "../Modal/Helper/HelperModal";
@@ -8,7 +7,6 @@ import { HelperLoginContext } from "../../LOGIN/Helpers/HelperLogin";
 
 function NavBarIndex() {
 
-    const { scrollToTop } = useContext(HelpersIndexContext);
     const { setOpenCart } = useContext(HelperModalContext);
     const { usuarioLogeado, cargandoLogin, cerrarSesion } = useContext(HelperLoginContext);
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -52,17 +50,7 @@ function NavBarIndex() {
                         <span />
                     </button>
 
-                    <nav className="nav-left">
-                        <button onClick={() => {
-                            scrollToTop();
-                            cerrarMenu();
-                        }} className="nav-link">
-                            Inicio
-                        </button>
-                        <a href="#artistas" className="nav-link" onClick={cerrarMenu}>Artistas</a>
-                        <a href="#info" className="nav-link" onClick={cerrarMenu}>Info</a>
-                        <a href="#noticias" className="nav-link" onClick={cerrarMenu}>Noticias</a>
-                    </nav>
+                    <nav className="nav-left" />
 
                     <div className="logo-button">
                         <img src="logo.webp" alt="Hellborn Fest" className="logo" loading="eager" />

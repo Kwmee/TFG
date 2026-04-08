@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { HelpersIndexContext } from '../Helpers/HelpersIndex'
 import Navbar from '../../Components/NavBars/NavBar'
-import Footer from '../../Components/Footer/Footer'
 
 
 // INDEX
@@ -33,50 +31,6 @@ function Index() {
                     </div>
                 </div>
             </section>
-
-
-
-            {/* 
-                    <!-- <img src="img/1.png" className="superpuesta" alt="decoracion"> --> */}
-
-            {/* <!-- Artistas Section --> */}
-            <section className="section section-dark" id="artistas">
-                <div className="container">
-                    <div className="section-content">
-                        <h2 className="section-title">Artistas</h2>
-                        <p className="section-text">
-                            Próximamente anunciaremos el cartel completo
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* <!-- Info Section --> */}
-            <section className="section section-black" id="info">
-                <div className="container">
-                    <div className="section-content">
-                        <h2 className="section-title">Información</h2>
-                        <p className="section-text">Toda la información sobre el festival</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* <!-- Noticias Section --> */}
-            <section className="section section-dark" id="noticias">
-                <div className="container">
-                    <div className="section-content">
-                        <h2 className="section-title">Noticias</h2>
-                        <p className="section-text">Mantente al día con las últimas novedades</p>
-                    </div>
-                </div>
-            </section>
-
-            <Footer />
-
-          
-
-
-
         </div>
     )
 }
