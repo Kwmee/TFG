@@ -6,6 +6,7 @@ cmds = [
     "composer update",
     "composer install --no-dev --optimize-autoloader",
     "npm install",
+    "npm install bootstrap",
     "npm run build"
 ]
 
