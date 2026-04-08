@@ -4,8 +4,13 @@ function getCsrfToken() {
     ?.getAttribute("content");
 }
 
-export async function getConciertosAdmin(idAdmin) {
-  const respuesta = await fetch(`/admin/conciertos?idAdmin=${idAdmin}`, {
+export async function getConciertosAdmin(idAdmin, rolAdmin) {
+  const parametros = new URLSearchParams({
+    idAdmin: String(idAdmin),
+    rolAdmin: rolAdmin ?? "",
+  });
+
+  const respuesta = await fetch(`/admin/conciertos?${parametros.toString()}`, {
     headers: {
       Accept: "application/json",
     },
@@ -40,8 +45,13 @@ export async function postCrearConcierto(datosFormulario) {
   return datos;
 }
 
-export async function deleteConcierto(idConcierto, idAdmin) {
-  const respuesta = await fetch(`/admin/conciertos/${idConcierto}?idAdmin=${idAdmin}`, {
+export async function deleteConcierto(idConcierto, idAdmin, rolAdmin) {
+  const parametros = new URLSearchParams({
+    idAdmin: String(idAdmin),
+    rolAdmin: rolAdmin ?? "",
+  });
+
+  const respuesta = await fetch(`/admin/conciertos/${idConcierto}?${parametros.toString()}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

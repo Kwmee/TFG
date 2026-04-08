@@ -58,22 +58,18 @@ class EventoController extends Controller
     }
 
     // Comprueba si el usuario que hace la accion es administrador.
-    private function esAdmin(?int $idAdmin): bool
+    private function esAdmin(?int $idAdmin, ?string $rolAdmin): bool
     {
-        if (!$idAdmin) {
+        if (!$idAdmin || !$rolAdmin) {
             return false;
         }
 
-        return DB::connection('mysql_usuarios')
-            ->table('usuario')
-            ->where('id', $idAdmin)
-            ->where('rol', 'ADMIN')
-            ->exists();
+        return strtoupper($rolAdmin) === 'ADMIN';
     }
 
     public function adminListar(Request $request): JsonResponse
     {
-        if (!$this->esAdmin((int) $request->query('idAdmin'))) {
+        if (!$this->esAdmin((int) $request->query('idAdmin'), $request->query('rolAdmin'))) {
             return response()->json([
                 'message' => 'No tienes permisos de administrador.',
             ], 403);
@@ -94,7 +90,7 @@ class EventoController extends Controller
 
     public function adminCrear(Request $request): JsonResponse
     {
-        if (!$this->esAdmin((int) $request->input('idAdmin'))) {
+        if (!$this->esAdmin((int) $request->input('idAdmin'), $request->input('rolAdmin'))) {
             return response()->json([
                 'message' => 'No tienes permisos de administrador.',
             ], 403);
@@ -141,7 +137,7 @@ class EventoController extends Controller
 
     public function adminEliminar(Request $request, string $id): JsonResponse
     {
-        if (!$this->esAdmin((int) $request->query('idAdmin'))) {
+        if (!$this->esAdmin((int) $request->query('idAdmin'), $request->query('rolAdmin'))) {
             return response()->json([
                 'message' => 'No tienes permisos de administrador.',
             ], 403);

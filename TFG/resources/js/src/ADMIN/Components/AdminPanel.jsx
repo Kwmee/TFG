@@ -42,7 +42,7 @@ function AdminPanel() {
     setError("");
 
     const [resultadoConciertos, resultadoMerch, resultadoUsuarios] = await Promise.allSettled([
-      getConciertosAdmin(usuarioLogeado.id),
+      getConciertosAdmin(usuarioLogeado.id, usuarioLogeado.rol),
       getMerchAdmin(usuarioLogeado.id),
       getUsuarios(usuarioLogeado.id),
     ]);
@@ -121,6 +121,7 @@ function AdminPanel() {
       await postCrearConcierto({
         ...formularioConcierto,
         idAdmin: usuarioLogeado.id,
+        rolAdmin: usuarioLogeado.rol,
         idFestival: formularioConcierto.idFestival ? Number(formularioConcierto.idFestival) : null,
       });
 
@@ -144,7 +145,7 @@ function AdminPanel() {
     try {
       setMensaje("");
       setError("");
-      await deleteConcierto(idConcierto, usuarioLogeado.id);
+      await deleteConcierto(idConcierto, usuarioLogeado.id, usuarioLogeado.rol);
       setMensaje("Concierto eliminado correctamente.");
       cargarDatosAdmin();
     } catch (errorPeticion) {
