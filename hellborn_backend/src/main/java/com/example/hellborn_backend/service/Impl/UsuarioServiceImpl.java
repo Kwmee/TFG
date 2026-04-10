@@ -493,9 +493,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         List<PedidoLineaDTO> lineas = new ArrayList<>();
 
-        for (PedidoDetalle pedidoDetalle : pedidoUsuario.getPedidosDetalle() == null
-                ? Collections.emptyList()
-                : pedidoUsuario.getPedidosDetalle()) {
+        List<PedidoDetalle> pedidosDetalle = pedidoUsuario.getPedidosDetalle() == null
+                ? Collections.<PedidoDetalle>emptyList()
+                : pedidoUsuario.getPedidosDetalle();
+
+        for (PedidoDetalle pedidoDetalle : pedidosDetalle) {
             PedidoLineaDTO pedidoLineaDTO = new PedidoLineaDTO();
             pedidoLineaDTO.setTipo("MERCH");
             if (pedidoDetalle.getMerchandising() != null) {
@@ -509,9 +511,11 @@ public class UsuarioServiceImpl implements UsuarioService{
             lineas.add(pedidoLineaDTO);
         }
 
-        for (Entrada entrada : pedidoUsuario.getEntradas() == null
-                ? Collections.emptyList()
-                : pedidoUsuario.getEntradas()) {
+        List<Entrada> entradas = pedidoUsuario.getEntradas() == null
+                ? Collections.<Entrada>emptyList()
+                : pedidoUsuario.getEntradas();
+
+        for (Entrada entrada : entradas) {
             PedidoLineaDTO pedidoLineaDTO = new PedidoLineaDTO();
             pedidoLineaDTO.setTipo("TICKET");
             if (entrada.getTipoEntrada() != null) {
