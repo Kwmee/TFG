@@ -256,19 +256,7 @@ html {
 .inicio-carruseles {
     position: relative;
     padding: 5rem 0 6rem;
-    background:
-        linear-gradient(180deg, #000 0%, #070707 28%, #0d0d0d 100%);
-}
-
-.inicio-carruseles::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top center, rgba(220, 38, 38, 0.16), transparent 30%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: auto, 28px 28px;
-    pointer-events: none;
+    background: linear-gradient(180deg, #000 0%, #070707 28%, #0d0d0d 100%);
 }
 
 .inicio-bloque {

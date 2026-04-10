@@ -1,9 +1,7 @@
 .usuario-page {
   min-height: 100vh;
   padding: 11rem 0 5rem;
-  background:
-    radial-gradient(circle at top, rgba(225, 6, 0, 0.18), transparent 32%),
-    linear-gradient(180deg, #050505 0%, #0d0d0d 100%);
+  background: linear-gradient(180deg, #050505 0%, #0d0d0d 100%);
 }
 
 .usuario-contenido {
