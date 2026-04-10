@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../Components/NavBars/NavBar'
+import Footer from '../../Components/Footer/Footer'
 import { ROUTE_API_BASE_URL, API_BASE_URL, buildApiUrl } from "../../config/api";
 import { getMerch } from "../../TIENDA/API/api";
 
@@ -182,6 +183,8 @@ function Index() {
                     </article>
                 </div>
             </section>
+
+            <Footer />
         </div>
     )
 }
