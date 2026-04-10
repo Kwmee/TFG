@@ -89,9 +89,6 @@ function Index() {
                             <div>
                                 <p className="inicio-bloque-etiqueta">Route Hellborn</p>
                                 <h2 className="inicio-bloque-titulo">Últimos eventos añadidos</h2>
-                                <p className="inicio-bloque-texto">
-                                    Descubre las 12 últimas fechas incorporadas al calendario.
-                                </p>
                             </div>
 
                             <Link to="/Routes" className="inicio-boton-ver-mas">
@@ -141,9 +138,6 @@ function Index() {
                             <div>
                                 <p className="inicio-bloque-etiqueta">Tienda Hellborn</p>
                                 <h2 className="inicio-bloque-titulo">Último merchandising añadido</h2>
-                                <p className="inicio-bloque-texto">
-                                    Una selección con los 12 productos más recientes de la tienda.
-                                </p>
                             </div>
 
                             <Link to="/Tienda" className="inicio-boton-ver-mas">

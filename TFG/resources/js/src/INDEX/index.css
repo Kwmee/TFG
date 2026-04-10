@@ -304,12 +304,6 @@ html {
     margin-bottom: 0.75rem;
 }
 
-.inicio-bloque-texto {
-    max-width: 42rem;
-    color: rgba(255, 255, 255, 0.72);
-    line-height: 1.7;
-}
-
 .inicio-boton-ver-mas {
     display: inline-flex;
     align-items: center;
