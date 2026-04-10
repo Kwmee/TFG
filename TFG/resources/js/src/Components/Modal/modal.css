@@ -91,3 +91,67 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+.cart-error {
+  color: #ff8c8c;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.purchase-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.purchase-popup {
+  width: 100%;
+  max-width: 420px;
+  background: #0c0c0c;
+  border: 1px solid rgba(225, 6, 0, 0.35);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.purchase-popup h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 1rem;
+}
+
+.purchase-popup p {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+}
+
+.purchase-popup-total {
+  margin: 1rem 0 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.purchase-popup-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.checkout-btn-secondary {
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 640px) {
+  .purchase-popup-actions {
+    flex-direction: column;
+  }
+}

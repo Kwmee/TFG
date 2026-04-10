@@ -86,9 +86,14 @@ export const HelperModalProvider = ({ children }) => {
         );
     };
 
+    const vaciarCarrito = () => {
+        setArrMerch([]);
+        setArrTicket([]);
+    };
+
     return (
         <HelperModalContext.Provider
-            value={{ openCart, setOpenCart, arrMerch, addMerch, removeMerch, arrTicket, addTicket, removeTicket, toast }}
+            value={{ openCart, setOpenCart, arrMerch, addMerch, removeMerch, arrTicket, addTicket, removeTicket, vaciarCarrito, toast }}
         >
             {children}
         </HelperModalContext.Provider>

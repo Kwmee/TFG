@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TipoEntradaDTO {
 
+    private Integer id;
     private String categoria;
     private Float precio;
     private String descripcion;
