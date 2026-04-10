@@ -63,21 +63,79 @@
 
   ```text
   TFG/
-  ├── app/
-  ├── bootstrap/
-  ├── config/
-  ├── public/
-  ├── resources/js/src/
-  ├── routes/
-  ├── package.json
-  ├── composer.json
-  └── vite.config.js
-
-  hellborn_backend/
-  ├── src/main/java/com/example/hellborn_backend/
-  ├── src/main/resources/
-  ├── pom.xml
-  └── mvnw
+  ├── README.md
+  ├── package-lock.json
+  ├── .vscode/
+  │   └── settings.json
+  ├── hellborn_backend/
+  │   ├── pom.xml
+  │   ├── mvnw
+  │   ├── mvnw.cmd
+  │   ├── .mvn/
+  │   │   └── wrapper/
+  │   │       └── maven-wrapper.properties
+  │   └── src/
+  │       ├── main/
+  │       │   ├── java/com/example/hellborn_backend/
+  │       │   │   ├── HellbornBackendApplication.java
+  │       │   │   ├── config/
+  │       │   │   │   └── CorsConfig.java
+  │       │   │   ├── controller/
+  │       │   │   │   ├── MerchandisingController.java
+  │       │   │   │   ├── TipoEntradaController.java
+  │       │   │   │   └── UsuarioController.java
+  │       │   │   ├── DTO/
+  │       │   │   ├── entity/
+  │       │   │   ├── mapper/
+  │       │   │   ├── repository/
+  │       │   │   └── service/
+  │       │   │       └── Impl/
+  │       │   └── resources/
+  │       │       └── application.properties
+  │       └── test/
+  │           └── java/com/example/hellborn_backend/
+  │               └── HellbornBackendApplicationTests.java
+  └── TFG/
+      ├── artisan
+      ├── composer.json
+      ├── package.json
+      ├── vite.config.js
+      ├── api/
+      │   └── index.php
+      ├── app/
+      │   ├── Http/Controllers/
+      │   ├── Models/
+      │   └── Providers/
+      ├── config/
+      ├── database/
+      │   ├── factories/
+      │   ├── migrations/
+      │   └── seeders/
+      ├── public/
+      ├── resources/
+      │   ├── css/
+      │   ├── js/
+      │   │   ├── app.jsx
+      │   │   └── src/
+      │   │       ├── App.jsx
+      │   │       ├── Components/
+      │   │       ├── Providers/
+      │   │       ├── config/
+      │   │       ├── INDEX/
+      │   │       ├── ROUTE/
+      │   │       ├── TIENDA/
+      │   │       ├── TICKETS/
+      │   │       ├── LOGIN/
+      │   │       ├── ADMIN/
+      │   │       └── USUARIO/
+      │   └── views/
+      │       └── app.blade.php
+      ├── routes/
+      ├── storage/
+      └── tests/
+          ├── Feature/
+          └── Unit/
+  ```
 
   ## Funcionalidades principales
 
